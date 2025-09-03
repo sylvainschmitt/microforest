@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "01_data.html#site-infos",
+    "href": "01_data.html#site-infos",
+    "title": "Data",
+    "section": "Site infos",
+    "text": "Site infos\nPlots of Manaré (MAN430, MAN441 and MAN431)."
+  },
+  {
+    "objectID": "01_data.html#plot-infos",
+    "href": "01_data.html#plot-infos",
+    "title": "Data",
+    "section": "Plot infos",
+    "text": "Plot infos\nInfos from ONF (Caroline Bedeau caroline.bedeau@onf.fr pers. com.).\n\nMAN430\n\nControl\n\nMAN431\n\nLogging March-April 2024\nDebusquage ~April 2024\nDébardage ~ Dry season 2024\n\nMAN441\n\nUP1\nLIDAR 2023\nLogging October-November 2020\nDebusquage February-March 2022\nDébardage October 2022\nEverything is done including fuelwood"
+  },
+  {
+    "objectID": "01_data.html#lidar-infos",
+    "href": "01_data.html#lidar-infos",
+    "title": "Data",
+    "section": "Lidar infos",
+    "text": "Lidar infos\nInfos from ONF (Caroline Bedeau caroline.bedeau@onf.fr pers. com.).\n\n2013 Pre-logging\n\nRiegl LMS-Q560\nHeight 500m\nAngle +/- 30°\nDensity ~5 pulses / m² ; non homogeneous (recovery 20 à 30%)\n\n2023 IFIHSA\n\npart of post-logging MAN441, pre-logging MAN431\nRiegl VQ-780II\nHeight 1000m\nAngle +/- 30°\nDensity ~12 pulses / m² ; non homogeneous (recovery 81%)\n\n2023 ONF\n\npart of post-logging MAN441\nRiegl VQ-780II\nHeight 750m\nAngle +/- 30°\nDensity ~20 pulses / m² ; non homogeneous (recovery 61%)\n\n2026 ONF for MAN431 post-logging?"
+  },
+  {
+    "objectID": "97_meeting.html#kick-off",
+    "href": "97_meeting.html#kick-off",
+    "title": "Meetings",
+    "section": "24/05/23 - Kick-off",
+    "text": "24/05/23 - Kick-off\nSylvain, Vincyane\n\nNotes\n\nlidar ~ light (hobo), tas, hr ground (tomst)\nlidar: aircraft & drone\nmicroclimate: tomst & hobo, 10 m transects, seedling squares\n3 transects, topo, bottom light, plateau light = 32\n15 minutes for one year\nannual metrics important for the biology of regeneration,\nmean annual seasonal extremes diurnal nocturnal\nmetrics distinguish canopy topo\nmacro aperture (another research question)\nhobo = light & heap but protection concerns\ncheck tas hobo tomst link\n\nBig tasks\n\nData cleaning\nSpatio-temporal exploration of the data\nChoice and computation of metrics\n\nTasks\n\nVincyane: raw data (400 MB) & additional information, tower data to be streamed, Rmd to be cleaned up for sharing with ideas & literature\nSylvain: make a repository and tasks by discussing continuously\nTimetable: in a hurry (progress in 2 stages: a first quick result and a second finer result later), 1° ~July"
+  },
+  {
+    "objectID": "01_data.html#spatial-data",
+    "href": "01_data.html#spatial-data",
+    "title": "Data",
+    "section": "Spatial data",
+    "text": "Spatial data\nData from ONF (Caroline Bedeau caroline.bedeau@onf.fr pers. com.).\n\n\nCode\nzone &lt;- st_read(\"data/lidar/ScenarioA_ZoneManare1.gpkg\", quiet = TRUE) %&gt;% \n  st_transform(crs = 4326)\nlidar &lt;- st_read(\"data/lidar/Lidar_ONF_postexploitation2023.gpkg\", quiet = TRUE) %&gt;% \n  st_transform(crs = 4326)\nmanare &lt;- st_read(\"data/lidar/designation_AG_Manare.gpkg\", quiet = TRUE) %&gt;% \n   st_transform(crs = 4326)\nmaweyo &lt;- st_read(\"data/lidar/designation_AG_Maweyo-Saouaoue.gpkg\", quiet = TRUE) %&gt;% \n  st_transform(crs = 4326)\nggplot(manare) +\n  geom_sf(size = .01, aes(col = \"Angeliques\")) +\n  geom_sf(data = maweyo, size = .01, aes(col = \"Angeliques\")) +\n  geom_sf(data = zone, fill = NA, aes(col = \"Zone Manare 1\")) +\n  geom_sf(data = lidar, fill = NA, aes(col = \"LIDAR 2023\")) +\n  theme_bw() +\n  scale_color_manual(values = c(\"darkgrey\", \"red\", \"blue\"))"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "microforest",
+    "section": "",
+    "text": "Introduction\nmicroforest is a repository for Sylvain Schmitt’s analyses from the MicroForest project, which studies the adaptation of forest trees by examining genetic diversity and natural selection in regenerating seedlings. Microforest’s objective is to compare contrasting management methods for each species."
+  },
+  {
+    "objectID": "index.html#project",
+    "href": "index.html#project",
+    "title": "microforest",
+    "section": "Project",
+    "text": "Project\nmicroforest includes all codes to access the data (in data/) & analyse the data (files.qmd) with associated documentation and figures. Intermediary files and outputs can be accessed in outputs/. The project takes advantage of renv to manage the R environment for enhanced reproducibility."
+  },
+  {
+    "objectID": "index.html#help",
+    "href": "index.html#help",
+    "title": "microforest",
+    "section": "Help",
+    "text": "Help\nPlease preferentially create an issue on GitHub for any questions, bugs or help needed regarding microforest. You may however reach us by mail with people from the core group (see below)."
+  },
+  {
+    "objectID": "index.html#core-group",
+    "href": "index.html#core-group",
+    "title": "microforest",
+    "section": "Core group",
+    "text": "Core group\n\nSylvain Schmitt (sylvain.schmitt@cirad.fr)\nNiklas Tysklind\net al."
+  }
+]

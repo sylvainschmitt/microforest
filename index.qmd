@@ -1,0 +1,17 @@
+# Introduction {.unnumbered}
+
+**microforest** is a repository for Sylvain Schmitt's analyses from the MicroForest project, which studies the adaptation of forest trees by examining genetic diversity and natural selection in regenerating seedlings. Microforest's objective is to compare contrasting management methods for each species.
+
+## Project
+
+**microforest** includes all codes to access the data (in `data/`) & analyse the data (`files.qmd`) with associated [documentation and figures](https://sylvainschmitt.github.io/microclim/). Intermediary files and outputs can be accessed in `outputs/`. The project takes advantage of `renv` to manage the R environment for enhanced reproducibility.
+
+## Help
+
+Please preferentially create an issue on GitHub for any questions, bugs or help needed regarding **microforest**. You may however reach us by mail with people from the core group (see below).
+
+## Core group
+
+-   Sylvain Schmitt (sylvain.schmitt\@cirad.fr)
+-   Niklas Tysklind
+-   *et al.*

@@ -1,0 +1,77 @@
+```{r set}
+#| message: false
+#| include: false
+library(tidyverse)
+library(sf)
+```
+
+# Data {.unnumbered}
+
+## Site infos
+
+Plots of Manaré (MAN430, MAN441 and MAN431).
+
+## Plot infos
+
+Infos from ONF (Caroline Bedeau [caroline.bedeau\@onf.fr](mailto:caroline.bedeau@onf.fr){.email} pers. com.).
+
+-   MAN430
+    -   Control
+-   MAN431
+    -   Logging March-April 2024
+    -   Debusquage \~April 2024
+    -   Débardage \~ Dry season 2024
+-   MAN441
+    -   UP1
+    -   LIDAR 2023
+    -   Logging October-November 2020
+    -   Debusquage February-March 2022
+    -   Débardage October 2022
+    -   Everything is done including fuelwood
+
+## Lidar infos
+
+Infos from ONF (Caroline Bedeau [caroline.bedeau\@onf.fr](mailto:caroline.bedeau@onf.fr){.email} pers. com.).
+
+-   2013 Pre-logging
+    -   Riegl LMS-Q560
+    -   Height 500m
+    -   Angle +/- 30°
+    -   Density \~5 pulses / m² ; non homogeneous (recovery 20 à 30%)
+-   2023 IFIHSA
+    -   part of post-logging MAN441, pre-logging MAN431
+    -   Riegl VQ-780II
+    -   Height 1000m
+    -   Angle +/- 30°
+    -   Density \~12 pulses / m² ; non homogeneous (recovery 81%)
+-   2023 ONF
+    -   part of post-logging MAN441
+    -   Riegl VQ-780II
+    -   Height 750m
+    -   Angle +/- 30°
+    -   Density \~20 pulses / m² ; non homogeneous (recovery 61%)
+-   2026 ONF for MAN431 post-logging?
+
+## Spatial data
+
+Data from ONF (Caroline Bedeau [caroline.bedeau\@onf.fr](mailto:caroline.bedeau@onf.fr){.email} pers. com.).
+
+```{r datasp}
+#| message: false
+#| warning: false
+zone <- st_read("data/lidar/ScenarioA_ZoneManare1.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326)
+lidar <- st_read("data/lidar/Lidar_ONF_postexploitation2023.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326)
+manare <- st_read("data/lidar/designation_AG_Manare.gpkg", quiet = TRUE) %>% 
+   st_transform(crs = 4326)
+maweyo <- st_read("data/lidar/designation_AG_Maweyo-Saouaoue.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326)
+ggplot(manare) +
+  geom_sf(size = .01, aes(col = "Angeliques")) +
+  geom_sf(data = maweyo, size = .01, aes(col = "Angeliques")) +
+  geom_sf(data = zone, fill = NA, aes(col = "Zone Manare 1")) +
+  geom_sf(data = lidar, fill = NA, aes(col = "LIDAR 2023")) +
+  theme_bw() +
+  scale_color_manual(values = c("darkgrey", "red", "blue"))
+```
