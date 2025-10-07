@@ -13,5 +13,7 @@ Please preferentially create an issue on GitHub for any questions, bugs or help 
 ## Core group
 
 -   Sylvain Schmitt (sylvain.schmitt\@cirad.fr)
--   Niklas Tysklind
+-   Niklas Tysklind (INRAE)
+-   Caroline Bedeau (ONF)
+-   Théo Maugard (INRAE)
 -   *et al.*

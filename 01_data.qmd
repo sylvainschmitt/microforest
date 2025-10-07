@@ -7,6 +7,33 @@ library(sf)
 
 # Data {.unnumbered}
 
+```{r data_prep}
+#| message: false
+#| warning: false
+zone <- st_read("data/onf/ScenarioA_ZoneManare1.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326)
+manare <- st_read("data/onf/designation_AG_Manare.gpkg", quiet = TRUE) %>% 
+   st_transform(crs = 4326)
+lidar_prev <- st_read("data/onf/Lidar_ONF_postexploitation2023.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326) %>% 
+  st_crop(st_bbox(manare))
+lidar_fut <- st_read("data/onf/2025-7100-14_Prestation_similaire_II_Manare.gpkg",
+                         quiet = TRUE) %>%
+  st_transform(crs = 4326)
+carbet <- st_read("data/ecofog/carbet_manare.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326)
+roads <- st_read("data/ecofog/routes_onf.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326) %>% 
+  st_crop(st_bbox(manare))
+tracks <- st_read("data/ecofog/pistes_debardage.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326)
+grid <- st_read("data/ecofog/Grille_TC.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326)
+corners <- st_read("data/ecofog/Piquets_tous.gpkg", quiet = TRUE) %>% 
+  st_transform(crs = 4326) %>% 
+  mutate(treatment = str_sub(name, 1, 2))
+```
+
 ## Site infos
 
 Plots of Manaré (MAN430, MAN441 and MAN431).
@@ -54,24 +81,37 @@ Infos from ONF (Caroline Bedeau [caroline.bedeau\@onf.fr](mailto:caroline.bedeau
 
 ## Spatial data
 
-Data from ONF (Caroline Bedeau [caroline.bedeau\@onf.fr](mailto:caroline.bedeau@onf.fr){.email} pers. com.).
+Data from ONF (Caroline Bedeau [caroline.bedeau\@onf.fr](mailto:caroline.bedeau@onf.fr){.email} pers. com.) and ECOFOG (Théo Maugard theo.maugard\@inrae.fr pers. com.)
 
-```{r datasp}
+```{r large}
 #| message: false
 #| warning: false
-zone <- st_read("data/lidar/ScenarioA_ZoneManare1.gpkg", quiet = TRUE) %>% 
-  st_transform(crs = 4326)
-lidar <- st_read("data/lidar/Lidar_ONF_postexploitation2023.gpkg", quiet = TRUE) %>% 
-  st_transform(crs = 4326)
-manare <- st_read("data/lidar/designation_AG_Manare.gpkg", quiet = TRUE) %>% 
-   st_transform(crs = 4326)
-maweyo <- st_read("data/lidar/designation_AG_Maweyo-Saouaoue.gpkg", quiet = TRUE) %>% 
-  st_transform(crs = 4326)
 ggplot(manare) +
-  geom_sf(size = .01, aes(col = "Angeliques")) +
-  geom_sf(data = maweyo, size = .01, aes(col = "Angeliques")) +
-  geom_sf(data = zone, fill = NA, aes(col = "Zone Manare 1")) +
-  geom_sf(data = lidar, fill = NA, aes(col = "LIDAR 2023")) +
+  geom_sf(size = .01, alpha = .2, col = "lightgrey") +
+  geom_sf(data = carbet, aes(col = "carbet")) +
+  geom_sf(data = roads, alpha = .4) +
+  geom_sf(data = tracks, alpha = .2) +
+  geom_sf(data = lidar_prev, fill = NA,
+          aes(col = "LIDAR 2023")) +
+  geom_sf(data = lidar_fut, fill = NA,
+          aes(col = "LIDAR scheduled")) +
+  geom_sf(data = corners, aes(col = treatment)) +
   theme_bw() +
-  scale_color_manual(values = c("darkgrey", "red", "blue"))
+  scale_color_discrete("")
+```
+
+```{r small}
+#| message: false
+#| warning: false
+ggplot(manare %>% st_crop(st_bbox(corners))) +
+  geom_sf(size = .01, alpha = .2, col = "lightgrey") +
+  geom_sf(data = roads %>% st_crop(st_bbox(corners)), alpha = .4) +
+  geom_sf(data = tracks %>% st_crop(st_bbox(corners)), alpha = .2) +
+  geom_sf(data = corners, aes(col = treatment)) +
+  geom_sf(data = lidar_prev %>% st_crop(st_bbox(corners)), fill = NA,
+          aes(col = "LIDAR 2023")) +
+  geom_sf(data = lidar_fut, fill = NA,
+          aes(col = "LIDAR scheduled")) +
+  theme_bw() +
+  scale_color_discrete("")
 ```
